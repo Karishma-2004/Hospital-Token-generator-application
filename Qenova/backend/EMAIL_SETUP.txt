@@ -1,0 +1,9 @@
+Qenova Gmail SMTP is preconfigured in backend/.env for the supplied Gmail account.
+
+If Gmail rejects authentication, create a new Google App Password and replace EMAIL_HOST_PASSWORD in backend/.env.
+Do not use the normal Gmail account password.
+
+Start backend:
+  python manage.py migrate
+  python manage.py check
+  python manage.py runserver

@@ -1,0 +1,9 @@
+Django>=6.0,<6.1
+djangorestframework>=3.15,<4
+djangorestframework-simplejwt>=5.3,<6
+django-cors-headers>=4.4,<5
+python-dotenv>=1.0,<2
+channels>=4.3,<5
+uvicorn>=0.30
+websockets>=13
+whitenoise>=6.6

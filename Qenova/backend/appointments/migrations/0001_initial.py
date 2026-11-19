@@ -1,0 +1,5 @@
+from django.db import migrations,models
+import django.db.models.deletion
+class Migration(migrations.Migration):
+ dependencies=[('accounts','0001_initial'),('doctors','0001_initial')]
+ operations=[migrations.CreateModel(name='Appointment',fields=[('id',models.BigAutoField(auto_created=True,primary_key=True,serialize=False,verbose_name='ID')),('appointment_date',models.DateField()),('appointment_time',models.TimeField()),('token_number',models.PositiveIntegerField()),('status',models.CharField(choices=[('BOOKED','Booked'),('CANCELLED','Cancelled'),('COMPLETED','Completed')],default='BOOKED',max_length=20)),('created_at',models.DateTimeField(auto_now_add=True)),('doctor',models.ForeignKey(on_delete=django.db.models.deletion.PROTECT,related_name='appointments',to='doctors.doctorprofile')),('patient',models.ForeignKey(on_delete=django.db.models.deletion.PROTECT,related_name='appointments',to='accounts.user'))],options={'ordering':['appointment_date','appointment_time']}),migrations.AddConstraint(model_name='appointment',constraint=models.UniqueConstraint(fields=('doctor','appointment_date','token_number'),name='unique_doctor_day_token'))]

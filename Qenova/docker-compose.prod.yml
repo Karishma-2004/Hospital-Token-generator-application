@@ -1,0 +1,34 @@
+# Production-style run:  docker compose -f docker-compose.prod.yml up --build -d
+# Needs backend/.env with DJANGO_DEBUG=False, a real DJANGO_SECRET_KEY and the Razorpay keys (see DEPLOYMENT.md).
+services:
+  backend:
+    build: ./backend
+    env_file: ./backend/.env
+    environment:
+      DATABASE_PATH: /data/db.sqlite3
+    volumes:
+      - medibook-data:/data
+    restart: unless-stopped
+
+  reminders:
+    build: ./backend
+    command: python manage.py send_reminders --loop --interval 60
+    env_file: ./backend/.env
+    environment:
+      DATABASE_PATH: /data/db.sqlite3
+    volumes:
+      - medibook-data:/data
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  medibook-data:
